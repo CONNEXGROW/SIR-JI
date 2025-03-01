@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aspire 400K - Post-Revenue Stage</title>
+    <style>
+      /* Previous CSS styles remain the same - only showing new/modified styles */
+      
+      .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .award-card {
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: transform var(--transition-normal);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .award-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .award-image {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .award-image::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+      }
+
+      .award-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .registration-card {
+        background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-secondary) 100%);
+      }
+
+      .highlight-text {
+        color: var(--color-primary);
+        font-weight: bold;
+      }
+
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+      :root {
+        --color-bg: #0a0a0a;
+        --color-bg-secondary: #111111;
+        --color-text: #ffffff;
+        --color-text-secondary: #a0a0a0;
+        --color-primary: #4CAF50;
+        --color-primary-dark: #45a049;
+        --color-secondary: #2a2a2a;
+        --color-border: #333333;
+        --color-success: #4CAF50;
+        --color-error: #f44336;
+        --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 4rem;
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 16px;
+        --radius-full: 9999px;
+        --transition-fast: 0.15s ease;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.5s ease;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+        --z-header: 100;
+        --z-modal: 1000;
+        --z-tooltip: 1500;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body {
+        color: var(--color-text);
+        line-height: 1.6;
+        background: var(--color-bg);
+        transition: background-color var(--transition-normal), color var(--transition-normal);
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .navbar {
+        padding: 1rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--color-bg-secondary);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: var(--z-header);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--color-primary);
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--color-primary);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .hamburger .bar {
+        width: 25px;
+        height: 3px;
+        background-color: var(--color-text);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        margin-top: 4rem;
+        padding: 4rem 1rem;
+        overflow: hidden;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        max-width: 800px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        max-width: 700px;
+      }
+
+      .hero-cta {
+        padding: 0.8rem 2rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+        display: inline-block;
+        background: var(--color-primary);
+        color: white;
+      }
+
+      .hero-cta:hover {
+        background: var(--color-primary-dark);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .section {
+        padding: 5rem 0;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 1rem;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--color-primary);
+      }
+
+      .about {
+        padding: 5rem 0;
+        background: var(--color-bg-secondary);
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-image img {
+        width: 100%;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+      }
+
+      .about-text p {
+        margin-bottom: 1rem;
+        color: var(--color-text-secondary);
+      }
+
+      .awards {
+        padding: 5rem 0;
+      }
+
+      .awards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .award-card {
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: transform var(--transition-normal);
+      }
+
+      .award-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .award-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .award-title {
+        padding: 1rem 1rem 0.5rem;
+        color: var(--color-primary);
+        font-size: 1.25rem;
+      }
+
+      .award-description {
+        padding: 0 1rem 1.5rem;
+        color: var(--color-text-secondary);
+      }
+
+      .timeline {
+        padding: 5rem 0;
+        background: var(--color-bg-secondary);
+      }
+
+      .timeline-header {
+        margin-bottom: 3rem;
+      }
+
+      .timeline-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: var(--radius-md);
+      }
+
+      .timeline-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .timeline-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: var(--color-primary);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+
+      .timeline-item:nth-child(odd) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-date {
+        font-weight: bold;
+        color: var(--color-primary);
+        width: 45%;
+        text-align: right;
+        padding-right: 2rem;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-date {
+        text-align: left;
+        padding-right: 0;
+        padding-left: 2rem;
+      }
+
+      .timeline-content {
+        background: var(--color-bg);
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+        width: 45%;
+      }
+
+      .timeline-title {
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-description {
+        color: var(--color-text-secondary);
+      }
+
+      .registration {
+        padding: 5rem 0;
+      }
+
+      .registration-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .registration-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .registration-content {
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .registration-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+      }
+
+      .registration-description {
+        margin-bottom: 1.5rem;
+        color: var(--color-text-secondary);
+      }
+
+      .registration-fee {
+        font-weight: bold;
+        margin-bottom: 2rem;
+        font-size: 1.25rem;
+      }
+
+      .registration-button {
+        padding: 1rem 2rem;
+        background: var(--color-primary);
+        color: white;
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        font-weight: bold;
+        display: inline-block;
+        text-align: center;
+        transition: all 0.3s;
+      }
+
+      .registration-button:hover {
+        background: var(--color-primary-dark);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .footer {
+        background: var(--color-bg-secondary);
+        padding: 2rem 5%;
+        text-align: center;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .footer-logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--color-primary);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-links a {
+        color: var(--color-text);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--color-primary);
+      }
+
+      .footer-copyright {
+        color: var(--color-text-secondary);
+        margin-top: 1rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        color: var(--color-text);
+        font-size: 1.25rem;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: var(--color-primary);
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          right: -100%;
+          top: 5rem;
+          flex-direction: column;
+          background-color: var(--color-bg-secondary);
+          width: 100%;
+          text-align: center;
+          transition: 0.3s;
+          box-shadow: 0 10px 27px rgba(0, 0, 0, 0.5);
+          padding: 2rem 0;
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .nav-links a {
+          margin: 1.5rem 0;
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+          opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline-container::before {
+          left: 20px;
+        }
+
+        .timeline-item {
+          flex-direction: column;
+          align-items: flex-start;
+          padding-left: 45px;
+        }
+
+        .timeline-item:nth-child(odd) {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .timeline-date {
+          width: 100%;
+          text-align: left;
+          padding-right: 0;
+          margin-bottom: 0.5rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-date {
+          padding-left: 0;
+        }
+
+        .timeline-content {
+          width: 100%;
+        }
+
+        .registration-card {
+          grid-template-columns: 1fr;
+        }
+
+        .registration-image {
+          height: 250px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Aspire 400K</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#awards">Awards</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#register">Register</a>
+      </div>
+      <div class="hamburger">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="container">
+        <h1 class="hero-title">Post-Revenue Stage</h1>
+        <p class="hero-subtitle">For revenue-generating startups ready to scale, secure funding, and expand their market presence</p>
+        <a href="#register" class="hero-cta">Scale Your Success</a>
+      </div>
+    </div>
+
+    <section class="about" id="about">
+      <div class="container">
+        <h2 class="section-title">About This Category</h2>
+        <div class="about-content">
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Successful startup team">
+          </div>
+          <div class="about-text">
+            <p>Designed for startups that have already generated revenue and are now looking to scale, secure funding, and expand their reach. This stage provides investment opportunities, growth strategies, and media exposure to take businesses to the next level.</p>
+            <p>If you have a proven business model with consistent revenue and are ready to accelerate your growth, this category offers the connections, resources, and exposure needed to attract investment and scale your operations.</p>
+            <p>Join a community of successful founders and connect with investors who can help take your business to new heights.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="awards" id="awards">
+      <div class="container">
+        <h2 class="section-title">Awards & Benefits</h2>
+        <div class="awards-grid">
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Cash Prize">
+            </div>
+            <div class="award-content">
+              <h3 class="award-title">Cash Prize</h3>
+              <p class="award-description">Win up to ₹200,000 for the best idea and ₹50,000 for runner-ups to fuel your growth.</p>
+            </div>
+          </div>
+
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Investment Opportunities">
+            </div>
+            <div class="award-content">
+              <h3 class="award-title">Investment Opportunities</h3>
+              <p class="award-description">Direct connections with venture capitalists, angel investors, and leading accelerators.</p>
+            </div>
+          </div>
+
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Growth Masterclasses">
+            </div>
+            <div class="award-content">
+              <h3 class="award-title">Growth Masterclasses</h3>
+              <p class="award-description">Expert-led sessions on scaling, customer acquisition, and automation techniques.</p>
+            </div>
+          </div>
+
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Media Coverage">
+            </div>
+            <div class="award-content">
+              <h3 class="award-title">Media & PR Exposure</h3>
+              <p class="award-description">Featured coverage in startup magazines and extensive social media promotion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="timeline" id="timeline">
+      <div class="container">
+        <h2 class="section-title">Competition Timeline</h2>
+        <div class="timeline-header">
+          <!-- <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Timeline" class="timeline-image">
+        </div> -->
+        <div class="timeline-container">
+          <div class="timeline-item">
+            <div class="timeline-date">March 15, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Registration Opens</h3>
+              <p class="timeline-description">Submit your growth plans and current metrics.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">April 10, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Registration Closes</h3>
+              <p class="timeline-description">Final deadline for applications.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">April 20, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Shortlisting Announced</h3>
+              <p class="timeline-description">Selected startups notified for the next round.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">May 1-15, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Growth Masterclasses</h3>
+              <p class="timeline-description">Intensive sessions on scaling and growth strategies.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">May 25, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Investor Pitch Day</h3>
+              <p class="timeline-description">Present to our panel of investors and VCs.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">May 30, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Grand Finale</h3>
+              <p class="timeline-description">Winners announcement and networking gala.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="registration" id="register">
+      <div class="container">
+        <h2 class="section-title">Register Now</h2>
+        <div class="registration-card">
+          <div class="registration-image">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Register Now">
+          </div>
+          <div class="registration-content">
+            <h2 class="registration-title">Register for Post-Revenue Stage</h2>
+            <p class="registration-description">Join an exclusive network of successful startups and take your business to the next level.</p>
+            <p class="registration-fee">Entry Fee: ₹999 + taxes</p>
+            <a href="#" class="registration-button">Register Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">Aspire 400K</div>
+          <!-- <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="#about">About</a>
+            <a href="#awards">Awards</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#register">Register</a>
+          </div> -->
+          <!-- <div class="social-links">
+            <a href="#"><span>Facebook</span></a>
+            <a href="#"><span>Twitter</span></a>
+            <a href="#"><span>Instagram</span></a>
+            <a href="#"><span>LinkedIn</span></a>
+          </div> -->
+          <div class="footer-copyright">
+            &copy; 2025 Aspire 400K. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Mobile menu toggle
+          const hamburger = document.querySelector('.hamburger');
+          const navLinks = document.querySelector('.nav-links');
+          
+          hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+          });
+          
+          // Close mobile menu when clicking on a nav link
+          const navItems = document.querySelectorAll('.nav-links a');
+          navItems.forEach(item => {
+            item.addEventListener('click', function() {
+              hamburger.classList.remove('active');
+              navLinks.classList.remove('active');
+            });
+          });
+          
+          // Smooth scrolling for anchor links
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              const targetId = this.getAttribute('href');
+              if (targetId === '#') return;
+              
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                window.scrollTo({
+                  top: targetElement.offsetTop - 70,
+                  behavior: 'smooth'
+                });
+              }
+            });
+          });
+        });
+      </script>
+  </body>
+</html>
+
