@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aspire 400K - Startup Competition</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+      :root {
+        --color-bg: #0a0a0a;
+        --color-bg-secondary: #111111;
+        --color-text: #ffffff;
+        --color-text-secondary: #a0a0a0;
+        --color-primary: #4CAF50;
+        --color-primary-dark: #45a049;
+        --color-secondary: #2a2a2a;
+        --color-border: #333333;
+        --color-success: #4CAF50;
+        --color-error: #f44336;
+        --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 4rem;
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 16px;
+        --radius-full: 9999px;
+        --transition-fast: 0.15s ease;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.5s ease;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+        --z-header: 100;
+        --z-modal: 1000;
+        --z-tooltip: 1500;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body {
+        color: var(--color-text);
+        line-height: 1.6;
+        background: var(--color-bg);
+        transition: background-color var(--transition-normal), color var(--transition-normal);
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .navbar {
+        padding: 1rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--color-bg-secondary);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: var(--z-header);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--color-primary);
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--color-primary);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .hamburger .bar {
+        width: 25px;
+        height: 3px;
+        background-color: var(--color-text);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        margin-top: 4rem;
+        padding: 4rem 1rem;
+        overflow: hidden;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        max-width: 800px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        max-width: 700px;
+      }
+
+      .hero-cta {
+        padding: 0.8rem 2rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+        display: inline-block;
+        background: var(--color-primary);
+        color: white;
+      }
+
+      .hero-cta:hover {
+        background: var(--color-primary-dark);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .section {
+        padding: 5rem 0;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 1rem;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--color-primary);
+      }
+
+      .about {
+        padding: 5rem 0;
+        background: var(--color-bg-secondary);
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-image img {
+        width: 100%;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+      }
+
+      .about-text p {
+        margin-bottom: 1rem;
+        color: var(--color-text-secondary);
+      }
+
+      .awards {
+        padding: 5rem 0;
+      }
+
+      .awards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .award-card {
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: transform var(--transition-normal);
+      }
+
+      .award-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .award-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .award-title {
+        padding: 1rem 1rem 0.5rem;
+        color: var(--color-primary);
+        font-size: 1.25rem;
+      }
+
+      .award-description {
+        padding: 0 1rem 1.5rem;
+        color: var(--color-text-secondary);
+      }
+
+      .timeline {
+        padding: 5rem 0;
+        background: var(--color-bg-secondary);
+      }
+
+      .timeline-header {
+        margin-bottom: 3rem;
+      }
+
+      .timeline-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: var(--radius-md);
+      }
+
+      .timeline-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .timeline-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: var(--color-primary);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+
+      .timeline-item:nth-child(odd) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-date {
+        font-weight: bold;
+        color: var(--color-primary);
+        width: 45%;
+        text-align: right;
+        padding-right: 2rem;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-date {
+        text-align: left;
+        padding-right: 0;
+        padding-left: 2rem;
+      }
+
+      .timeline-content {
+        background: var(--color-bg);
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+        width: 45%;
+      }
+
+      .timeline-title {
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-description {
+        color: var(--color-text-secondary);
+      }
+
+      .registration {
+        padding: 5rem 0;
+      }
+
+      .registration-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .registration-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .registration-content {
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .registration-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+      }
+
+      .registration-description {
+        margin-bottom: 1.5rem;
+        color: var(--color-text-secondary);
+      }
+
+      .registration-fee {
+        font-weight: bold;
+        margin-bottom: 2rem;
+        font-size: 1.25rem;
+      }
+
+      .registration-button {
+        padding: 1rem 2rem;
+        background: var(--color-primary);
+        color: white;
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        font-weight: bold;
+        display: inline-block;
+        text-align: center;
+        transition: all 0.3s;
+      }
+
+      .registration-button:hover {
+        background: var(--color-primary-dark);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .footer {
+        background: var(--color-bg-secondary);
+        padding: 2rem 5%;
+        text-align: center;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .footer-logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--color-primary);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-links a {
+        color: var(--color-text);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--color-primary);
+      }
+
+      .footer-copyright {
+        color: var(--color-text-secondary);
+        margin-top: 1rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        color: var(--color-text);
+        font-size: 1.25rem;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: var(--color-primary);
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          right: -100%;
+          top: 5rem;
+          flex-direction: column;
+          background-color: var(--color-bg-secondary);
+          width: 100%;
+          text-align: center;
+          transition: 0.3s;
+          box-shadow: 0 10px 27px rgba(0, 0, 0, 0.5);
+          padding: 2rem 0;
+        }
+
+        .nav-links.active {
+          right: 0;
+        }
+
+        .nav-links a {
+          margin: 1.5rem 0;
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+          opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline-container::before {
+          left: 20px;
+        }
+
+        .timeline-item {
+          flex-direction: column;
+          align-items: flex-start;
+          padding-left: 45px;
+        }
+
+        .timeline-item:nth-child(odd) {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .timeline-date {
+          width: 100%;
+          text-align: left;
+          padding-right: 0;
+          margin-bottom: 0.5rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-date {
+          padding-left: 0;
+        }
+
+        .timeline-content {
+          width: 100%;
+        }
+
+        .registration-card {
+          grid-template-columns: 1fr;
+        }
+
+        .registration-image {
+          height: 250px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="#" class="logo">Aspire 400K</a>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#awards">Awards</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#register">Register</a>
+      </div>
+      <div class="hamburger">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="container">
+        <h1 class="hero-title">Ideation Stage</h1>
+        <p class="hero-subtitle">For Students & Early-Stage Founders with innovative ideas looking for validation and mentorship</p>
+        <a href="#register" class="hero-cta">Register Now</a>
+      </div>
+    </div>
+
+    <section class="about" id="about">
+      <div class="container">
+        <h2 class="section-title">About This Category</h2>
+        <div class="about-content">
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Students brainstorming ideas">
+          </div>
+          <div class="about-text">
+            <p>This category is designed for aspiring entrepreneurs, students, and early-stage founders who have an innovative idea but are unsure of its viability. It provides essential mentorship, resources, and validation tools to help shape raw ideas into structured business concepts.</p>
+            <p>Whether you're a student with a breakthrough concept or an early-stage founder looking to refine your business model, this stage offers the guidance and support you need to take your first steps into entrepreneurship.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="awards" id="awards">
+      <div class="container">
+        <h2 class="section-title">Awards & Benefits</h2>
+        <div class="awards-grid">
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1589561253898-768105ca91a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Cash Prize">
+            </div>
+            <h3 class="award-title">Cash Prize</h3>
+            <p class="award-description">₹50,000 first prize for the most innovative and viable business idea.</p>
+          </div>
+
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Mentorship">
+            </div>
+            <h3 class="award-title">Mentorship</h3>
+            <p class="award-description">One-on-one mentorship sessions with top entrepreneurs and industry pioneers.</p>
+          </div>
+
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Startup Toolkit">
+            </div>
+            <h3 class="award-title">Startup Toolkit</h3>
+            <p class="award-description">Access to premium startup toolkits, including business model canvases, pitch deck templates, and market research guides.</p>
+          </div>
+
+          <div class="award-card">
+            <div class="award-image">
+              <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Recognition">
+            </div>
+            <h3 class="award-title">Recognition</h3>
+            <p class="award-description">A Certificate of Recognition for participation and pitching your innovative idea.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="timeline" id="timeline">
+      <div class="container">
+        <h2 class="section-title">Competition Timeline</h2>
+        <div class="timeline-header">
+          <!-- <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Timeline" class="timeline-image">
+        </div> -->
+        <div class="timeline-container">
+          <div class="timeline-item">
+            <div class="timeline-date">March 15, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Registration Opens</h3>
+              <p class="timeline-description">Start your application and submit your initial idea.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">April 10, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Registration Closes</h3>
+              <p class="timeline-description">Last day to submit your application.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">April 20, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Shortlisting Announced</h3>
+              <p class="timeline-description">Selected participants will be notified.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">May 5-10, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Mentorship Sessions</h3>
+              <p class="timeline-description">One-on-one sessions with industry experts.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">May 25, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Final Pitch Day</h3>
+              <p class="timeline-description">Present your refined idea to the judges.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">May 30, 2025</div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Winners Announcement</h3>
+              <p class="timeline-description">Awards ceremony and networking event.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="registration" id="register">
+      <div class="container">
+        <h2 class="section-title">Register Now</h2>
+        <div class="registration-card">
+          <div class="registration-image">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Register Now">
+          </div>
+          <div class="registration-content">
+            <h2 class="registration-title">Register for Ideation Stage</h2>
+            <p class="registration-description">Take the first step towards turning your innovative idea into a successful business.</p>
+            <p class="registration-fee">Entry Fee: ₹299 + taxes</p>
+            <a href="#" class="registration-button">Register Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">Aspire 400K</div>
+          <!-- <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#about">About</a>
+            <a href="#awards">Awards</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#register">Register</a>
+          </div> -->
+          <!-- <div class="social-links">
+            <a href="#"><span>Facebook</span></a>
+            <a href="#"><span>Twitter</span></a>
+            <a href="#"><span>Instagram</span></a>
+            <a href="#"><span>LinkedIn</span></a>
+          </div> -->
+          <div class="footer-copyright">
+            &copy; 2025 Aspire 400K. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', function() {
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a nav link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+          item.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+          });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 70,
+                behavior: 'smooth'
+              });
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
+
