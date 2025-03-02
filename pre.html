@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aspire 400K - Pre-Revenue Stage</title>
     <style>
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
       :root {
         --color-bg: #0a0a0a;
@@ -460,7 +460,7 @@
         }
 
         .nav-links a {
-          margin: 1.5rem 0;
+          margin: 0.75rem 0; /* Reduced margin for closer spacing */
         }
 
         .hamburger.active .bar:nth-child(2) {
@@ -610,8 +610,6 @@
       </div>
     </section>
 
-   
-
     <section class="registration" id="register">
       <div class="container">
         <h2 class="section-title">Register Now</h2>
@@ -658,12 +656,12 @@
         // Mobile menu toggle
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
-        
+
         hamburger.addEventListener('click', function() {
           hamburger.classList.toggle('active');
           navLinks.classList.toggle('active');
         });
-        
+
         // Close mobile menu when clicking on a nav link
         const navItems = document.querySelectorAll('.nav-links a');
         navItems.forEach(item => {
@@ -672,15 +670,15 @@
             navLinks.classList.remove('active');
           });
         });
-        
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
               window.scrollTo({
@@ -694,4 +692,3 @@
     </script>
   </body>
 </html>
-
