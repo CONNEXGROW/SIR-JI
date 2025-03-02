@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aspire 400K - Post-Revenue Stage</title>
     <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
       :root {
         --color-bg: #0a0a0a;
@@ -460,7 +460,7 @@
         }
 
         .nav-links a {
-          margin: 1.5rem 0;
+          margin: 0.75rem 0; /* Reduced margin for closer spacing */
         }
 
         .hamburger.active .bar:nth-child(2) {
@@ -539,7 +539,6 @@
         <a href="index.html">Home</a>
         <a href="#about">About</a>
         <a href="#awards">Awards</a>
-        <a href="#timeline">Timeline</a>
         <a href="#register">Register</a>
       </div>
       <div class="hamburger">
@@ -620,7 +619,6 @@
       </div>
     </section>
 
-
     <section class="registration" id="register">
       <div class="container">
         <h2 class="section-title">Register Now</h2>
@@ -663,44 +661,43 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          // Mobile menu toggle
-          const hamburger = document.querySelector('.hamburger');
-          const navLinks = document.querySelector('.nav-links');
-          
-          hamburger.addEventListener('click', function() {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-          });
-          
-          // Close mobile menu when clicking on a nav link
-          const navItems = document.querySelectorAll('.nav-links a');
-          navItems.forEach(item => {
-            item.addEventListener('click', function() {
-              hamburger.classList.remove('active');
-              navLinks.classList.remove('active');
-            });
-          });
-          
-          // Smooth scrolling for anchor links
-          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-              e.preventDefault();
-              
-              const targetId = this.getAttribute('href');
-              if (targetId === '#') return;
-              
-              const targetElement = document.querySelector(targetId);
-              if (targetElement) {
-                window.scrollTo({
-                  top: targetElement.offsetTop - 70,
-                  behavior: 'smooth'
-                });
-              }
-            });
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', function() {
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a nav link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+          item.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
           });
         });
-      </script>
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 70,
+                behavior: 'smooth'
+              });
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
-
