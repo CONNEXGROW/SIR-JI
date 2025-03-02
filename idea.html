@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aspire 400K - Startup Competition</title>
     <style>
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
       :root {
         --color-bg: #0a0a0a;
@@ -115,7 +115,7 @@
 
       .hero {
         position: relative;
-        min-height: 50vh; /* Adjusted to make the header smaller */
+        min-height: 50vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -126,9 +126,9 @@
         padding: 4rem 1rem;
         overflow: hidden;
         background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
-        background-size: cover; /* Ensure the image covers the container */
+        background-size: cover;
         background-position: center;
-        background-repeat: no-repeat; /* Prevent the image from repeating */
+        background-repeat: no-repeat;
       }
 
       .hero-title {
@@ -537,10 +537,10 @@
       <a href="#" class="logo">Aspire 400K</a>
       <div class="nav-links">
         <a href="#">Home</a>
-        <a href="pre.html">Pre revenue</a>
+        <!-- <a href="pre.html"></a>
         <a href="#awards">Awards</a>
-        <a href="post.html">Post revenue</a>
-        <a href="#register">Register</a>
+        <a href="post.html">Post revenue</a> -->
+        <!-- <a href="#register">Register</a> -->
       </div>
       <div class="hamburger">
         <div class="bar"></div>
@@ -611,63 +611,6 @@
       </div>
     </section>
 
-    <section class="timeline" id="timeline">
-      <div class="container">
-        <h2 class="section-title">Competition Timeline</h2>
-        <div class="timeline-header">
-          <!-- <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Timeline" class="timeline-image">
-        </div> -->
-        <div class="timeline-container">
-          <div class="timeline-item">
-            <div class="timeline-date">March 15, 2025</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Registration Opens</h3>
-              <p class="timeline-description">Start your application and submit your initial idea.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-date">April 10, 2025</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Registration Closes</h3>
-              <p class="timeline-description">Last day to submit your application.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-date">April 20, 2025</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Shortlisting Announced</h3>
-              <p class="timeline-description">Selected participants will be notified.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-date">May 5-10, 2025</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Mentorship Sessions</h3>
-              <p class="timeline-description">One-on-one sessions with industry experts.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-date">May 25, 2025</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Final Pitch Day</h3>
-              <p class="timeline-description">Present your refined idea to the judges.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-date">May 30, 2025</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Winners Announcement</h3>
-              <p class="timeline-description">Awards ceremony and networking event.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="registration" id="register">
       <div class="container">
@@ -715,12 +658,12 @@
         // Mobile menu toggle
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
-        
+
         hamburger.addEventListener('click', function() {
           hamburger.classList.toggle('active');
           navLinks.classList.toggle('active');
         });
-        
+
         // Close mobile menu when clicking on a nav link
         const navItems = document.querySelectorAll('.nav-links a');
         navItems.forEach(item => {
@@ -729,15 +672,15 @@
             navLinks.classList.remove('active');
           });
         });
-        
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
               window.scrollTo({
@@ -751,4 +694,3 @@
     </script>
   </body>
 </html>
-
