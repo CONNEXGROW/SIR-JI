@@ -805,12 +805,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
-            const dropdownTrigger = document.querySelector('.dropdown-trigger');
-            const dropdown = document.querySelector('.dropdown');
             const registerBtn = document.getElementById('register-btn');
             const heroRegisterBtn = document.getElementById('hero-register-btn');
-            const registerDropdown = document.getElementById('register-dropdown');
             const floatingRegisterBtn = document.getElementById('floating-register-btn');
+            const registerDropdown = document.getElementById('register-dropdown');
 
             const overlay = document.createElement('div');
             overlay.classList.add('menu-overlay');
@@ -849,25 +847,20 @@
                 overlay.style.visibility = 'hidden';
             });
 
-            if (window.innerWidth <= 768) {
-                dropdownTrigger.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    dropdown.classList.toggle('active');
-                });
-            }
-
             function toggleRegisterDropdown(e) {
                 e.preventDefault();
                 registerDropdown.classList.toggle('show');
-
-                if (dropdown.classList.contains('active')) {
-                    dropdown.classList.remove('active');
-                }
             }
 
             registerBtn.addEventListener('click', toggleRegisterDropdown);
             heroRegisterBtn.addEventListener('click', toggleRegisterDropdown);
             floatingRegisterBtn.addEventListener('click', toggleRegisterDropdown);
+
+            document.querySelectorAll('.register-dropdown a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    registerDropdown.classList.remove('show');
+                });
+            });
 
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.addEventListener('click', () => {
@@ -927,7 +920,6 @@
                 if (window.innerWidth > 768) {
                     hamburger.classList.remove('active');
                     navLinks.classList.remove('active');
-                    dropdown.classList.remove('active');
                     document.body.style.overflow = '';
                     overlay.style.opacity = '0';
                     overlay.style.visibility = 'hidden';
