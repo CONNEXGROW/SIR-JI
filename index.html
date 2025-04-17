@@ -1,953 +1,317 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aspire 400K - Startup Pitch Program</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        :root {
-            --color-bg: #0a0a0a;
-            --color-bg-secondary: #111111;
-            --color-text: #ffffff;
-            --color-text-secondary: #a0a0a0;
-            --color-primary: #4CAF50;
-            --color-primary-dark: #45a049;
-            --color-primary-light: #66bb6a;
-            --color-secondary: #2a2a2a;
-            --color-border: #333333;
-            --color-success: #4CAF50;
-            --color-error: #f44336;
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            --spacing-xs: 0.25rem;
-            --spacing-sm: 0.5rem;
-            --spacing-md: 1rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 4rem;
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 16px;
-            --radius-full: 9999px;
-            --transition-fast: 0.15s ease;
-            --transition-normal: 0.3s ease;
-            --transition-slow: 0.5s ease;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
-            --z-header: 100;
-            --z-modal: 1000;
-            --z-tooltip: 1500;
-        }
-
-        body {
-            color: var(--color-text);
-            line-height: 1.6;
-            background: var(--color-bg);
-            transition: background-color var(--transition-normal), color var(--transition-normal);
-        }
-
-        .navbar {
-            padding: 0.75rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--color-bg-secondary);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: var(--z-header);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--color-primary);
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.25rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--color-text);
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 0.5rem 0;
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--color-primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--color-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: var(--color-bg-secondary);
-            min-width: 220px;
-            box-shadow: var(--shadow-lg);
-            border-radius: var(--radius-md);
-            z-index: var(--z-modal);
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.5rem 0;
-            border: 1px solid var(--color-border);
-            margin-top: 0.5rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .dropdown-content::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 0 8px 8px 8px;
-            border-style: solid;
-            border-color: transparent transparent var(--color-border) transparent;
-        }
-
-        .dropdown-content a {
-            color: var(--color-text);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            transition: background-color 0.3s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--color-secondary);
-        }
-
-        .dropdown-content a::after {
-            display: none;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-            opacity: 1;
-        }
-
-        .dropdown-icon {
-            margin-right: 10px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            width: 30px;
-            height: 24px;
-            position: relative;
-            z-index: var(--z-modal);
-        }
-
-        .hamburger span {
-            display: block;
-            position: absolute;
-            height: 3px;
-            width: 100%;
-            background: var(--color-text);
-            border-radius: 3px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
-            transition: .25s ease-in-out;
-        }
-
-        .hamburger span:nth-child(1) {
-            top: 0px;
-        }
-
-        .hamburger span:nth-child(2) {
-            top: 10px;
-        }
-
-        .hamburger span:nth-child(3) {
-            top: 20px;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            top: 10px;
-            transform: rotate(135deg);
-            background-color: var(--color-primary);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-            left: -60px;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            top: 10px;
-            transform: rotate(-135deg);
-            background-color: var(--color-primary);
-        }
-
-        .hero {
-            position: relative;
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            margin-top: 0;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .hero img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            filter: brightness(1.0);
-        }
-
-        .hero-content {
-            max-width: 900px;
-            padding: 0 2rem;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .cta-btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            display: inline-block;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--color-primary);
-            color: white;
-            box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
-        }
-
-        .btn-primary:hover {
-            background: var(--color-primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2);
-        }
-
-        .section {
-            padding: 5rem 5%;
-        }
-
-        #how-it-works {
-            background: var(--color-bg);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--color-primary);
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-item {
-            background: var(--color-bg-secondary);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .feature-item h3 {
-            color: var(--color-primary);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .timeline {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--color-primary);
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-            text-align: right;
-        }
-
-        .timeline-content {
-            background: var(--color-bg-secondary);
-            padding: 1.5rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            width: 45%;
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            transform: scale(1.03);
-        }
-
-        .timeline-content::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 20px;
-            height: 20px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 6px var(--color-primary-light);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content::after {
-            left: -60px;
-            transform: translateY(-50%);
-        }
-
-        .timeline-item:nth-child(even) .timeline-content::after {
-            right: -60px;
-            transform: translateY(-50%);
-        }
-
-        .timeline-content h3 {
-            margin-bottom: 0.5rem;
-            color: var(--color-primary);
-        }
-
-        .timeline-date {
-            font-weight: bold;
-            color: var(--color-primary);
-            margin-top: 0.5rem;
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: var(--radius-sm);
-        }
-
-        .cta {
-            background: var(--color-secondary);
-            color: white;
-            text-align: center;
-            padding: 4rem 5%;
-        }
-
-        .cta p {
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .footer {
-            background: var(--color-bg-secondary);
-            padding: 2rem 5%;
-            text-align: center;
-            color: var(--color-text-secondary);
-        }
-
-        .register-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
-        }
-
-        .floating-btn {
-            position: relative;
-            z-index: 1001;
-            padding: 0.8rem 1.5rem;
-            border-radius: var(--radius-full);
-            box-shadow: var(--shadow-lg);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
-            }
-        }
-
-        .register-dropdown {
-            display: none;
-            position: absolute;
-            bottom: 100%;
-            right: 0;
-            margin-bottom: 15px;
-            background-color: var(--color-bg-secondary);
-            min-width: 250px;
-            box-shadow: var(--shadow-lg);
-            border-radius: var(--radius-md);
-            z-index: var(--z-modal);
-            padding: 0.75rem 0;
-            border: 1px solid var(--color-border);
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .register-dropdown::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            right: 20px;
-            border-width: 8px 8px 0 8px;
-            border-style: solid;
-            border-color: var(--color-border) transparent transparent transparent;
-        }
-
-        .register-dropdown a {
-            color: var(--color-text);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            transition: background-color 0.3s;
-        }
-
-        .register-dropdown a:hover {
-            background-color: var(--color-secondary);
-        }
-
-        .register-dropdown.show {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                flex-direction: column;
-                background-color: var(--color-bg-secondary);
-                width: 90%;
-                text-align: center;
-                transition: 0.3s ease-in-out;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                padding: 2rem;
-                border-radius: var(--radius-md);
-                opacity: 0;
-                visibility: hidden;
-                z-index: 99;
-            }
-
-            .nav-links.active {
-                opacity: 1;
-                visibility: visible;
-            }
-
-            .nav-links a {
-                margin: 0.5rem 0;
-                padding: 0.5rem 2rem;
-                width: 100%;
-                display: block;
-            }
-
-            .nav-links a::after {
-                display: none;
-            }
-
-            .dropdown {
-                width: 100%;
-            }
-
-            .dropdown-content {
-                position: static;
-                display: none;
-                width: 100%;
-                box-shadow: none;
-                border: none;
-                background-color: var(--color-secondary);
-                transform: none;
-                margin-top: 0;
-                border-radius: 0;
-                opacity: 1;
-            }
-
-            .dropdown-content::before {
-                display: none;
-            }
-
-            .dropdown.active .dropdown-content {
-                display: block;
-            }
-
-            .dropdown-trigger {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .dropdown-trigger::after {
-                content: '▼';
-                margin-left: 8px;
-                font-size: 0.8em;
-                transition: transform 0.3s ease;
-            }
-
-            .dropdown.active .dropdown-trigger::after {
-                transform: rotate(180deg);
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-                margin-bottom: 2rem;
-            }
-
-            .timeline-item:nth-child(odd) {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-            }
-
-            .timeline-content {
-                width: calc(100% - 40px);
-                margin-left: 40px;
-            }
-
-            .timeline-content::after {
-                left: -30px !important;
-                right: auto !important;
-            }
-
-            .register-container {
-                bottom: 1.5rem;
-                right: 1.5rem;
-            }
-
-            .floating-btn {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .section {
-                padding: 3rem 5%;
-            }
-
-            .feature-item {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submitted Details - Punya Pantry</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #FF8C00;
+      --text-color: #333;
+      --background-color: #fff;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background-color: var(--background-color);
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .get-in-touch {
+      background-color: var(--primary-color);
+      color: white !important;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .get-in-touch:hover {
+      background-color: #e67e00;
+    }
+
+    .mobile-menu-button {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .page-header {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/placeholder.svg?height=400&width=1200');
+      background-size: cover;
+      background-position: center;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .details-section {
+      padding: 4rem 0;
+      flex: 1;
+    }
+
+    .details-container {
+      background-color: #f8f8f8;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .details-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .details-header h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .details-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .details-item {
+      background-color: white;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .details-item h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .details-item p {
+      margin: 0.5rem 0 0;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-button {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--background-color);
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 999;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 0.75rem 0;
+      }
+
+      .get-in-touch {
+        margin-top: 0.5rem;
+        text-align: center;
+        padding: 0.75rem 1rem;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <nav class="navbar">
+  <header>
+    <div class="container">
+      <nav>
         <a href="#" class="logo">
-            <span>ASPIRE 400K</span>
+          <img src="https://nulyffoundation.org/WhatsApp%20Image%202025-01-17%20at%204.38.04%20PM.jpeg" alt="Punya Pantry Logo">
+          <div class="logo-text">Punya Pantry</div>
         </a>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="mobile-menu-button" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a href="bhandra.html">Home</a>
+          <a href="#">Current bhandras details</a>
+          <a href="#">Our Mission</a>
+          <a href="paisa.html">Get Involved</a>
+          <a href="#">Stories</a>
+          <a href="get-in-touch.html" class="get-in-touch">Get in Touch</a>
         </div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#jury">Jury</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <img src="https://0-five-tau.vercel.app/Flux_Dev_Vibrant_and_joyful_Indian_students_with_diverse_skin__1.jpeg" alt="Hero Image">
-        <div class="hero-content">
-            <h1>Aspire 400K Startup Pitch Program</h1>
-            <p>Pitch. Build. Grow.</p>
-            <a href="#" class="btn btn-primary cta-btn" id="hero-register-btn">Participate Now</a>
-        </div>
-    </header>
-
-    <section class="section" id="about">
-        <h2 class="section-title">About Aspire 400K</h2>
-        <div class="features">
-            <div class="feature-item">
-                <h3>Jump-starting Startups</h3>
-                <p>One of a kind platform for early-stage entrepreneurs, providing funding, mentorship, and networking opportunities.</p>
-            </div>
-            <div class="feature-item">
-                <h3>Mission</h3>
-                <p>Make India a superpower by churning out more startups than the world can handle.</p>
-            </div>
-            <div class="feature-item">
-                <h3>Our Solution</h3>
-                <p>Give startups a fighting chance to survive and thrive by providing the necessary support.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="how-it-works">
-        <h2 class="section-title">Competition Timeline</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Presentation Submission</h3>
-                    <p>Submit your presentation for evaluation.</p>
-                    <div class="timeline-date">15th March</div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Video Pitch Round</h3>
-                    <p>Shortlisted teams present their ideas in a video pitch.</p>
-                    <div class="timeline-date">31st March</div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Investor's Pitch Round</h3>
-                    <p>Finalists pitch their ideas to a panel of investors.</p>
-                    <div class="timeline-date">7th April</div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Winner Announcement</h3>
-                    <p>The winners of Aspire 400K are announced.</p>
-                    <div class="timeline-date">15th April</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="participate">
-        <h2 class="section-title">How to Participate</h2>
-        <div class="features">
-            <div class="feature-item">
-                <h3>Eligibility</h3>
-                <p>Startups less than 3 years old with less than INR 500K in funding.</p>
-            </div>
-            <div class="feature-item">
-                <h3>Prizes</h3>
-                <p>Win up to ₹4,00,000 in funding and mentorship opportunities.</p>
-            </div>
-            <div class="feature-item">
-                <h3>Networking</h3>
-                <p>Connect with investors and mentors to grow your startup.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section cta">
-        <h2 class="section-title">Ready to Pitch Your Idea?</h2>
-        <p>Join India's largest startup pitch competition and turn your idea into reality.</p>
-        <a href="#" class="btn btn-primary" id="register-btn">Participate Now</a>
-    </section>
-
-    <footer class="footer">
-        <p>&copy; 2024 Aspire 400K. All rights reserved.</p>
-    </footer>
-
-    <div class="register-container">
-        <a href="#" class="btn btn-primary floating-btn" id="floating-register-btn">Register Now</a>
-        <div class="register-dropdown" id="register-dropdown">
-            <a href="idea.html"><span class="dropdown-icon">💡</span>Ideation Stage</a>
-            <a href="pre.html"><span class="dropdown-icon">🚀</span>Pre-Revenue Stage</a>
-            <a href="post.html"><span class="dropdown-icon">📈</span>Post-Revenue Stage</a>
-        </div>
+      </nav>
     </div>
+  </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            const registerBtn = document.getElementById('register-btn');
-            const heroRegisterBtn = document.getElementById('hero-register-btn');
-            const floatingRegisterBtn = document.getElementById('floating-register-btn');
-            const registerDropdown = document.getElementById('register-dropdown');
+  <section class="page-header">
+    <div class="container">
+      <h1>Submitted Details</h1>
+      <p>Here are the details submitted through the Get in Touch form.</p>
+    </div>
+  </section>
 
-            const overlay = document.createElement('div');
-            overlay.classList.add('menu-overlay');
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            overlay.style.zIndex = '98';
-            overlay.style.opacity = '0';
-            overlay.style.visibility = 'hidden';
-            overlay.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
-            document.body.appendChild(overlay);
+  <section class="details-section">
+    <div class="container">
+      <div class="details-container">
+        <div class="details-header">
+          <h2>Contact Messages</h2>
+        </div>
+        <ul class="details-list" id="detailsList">
+          <!-- Details will be inserted here -->
+        </ul>
+      </div>
+    </div>
+  </section>
 
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navLinks.classList.toggle('active');
+  <footer>
+    <div class="container">
+      <div class="copyright">
+        &copy; 2025 Punya Pantry - Sharing Love Through Food. All rights reserved.
+      </div>
+    </div>
+  </footer>
 
-                if (navLinks.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                    overlay.style.opacity = '1';
-                    overlay.style.visibility = 'visible';
-                } else {
-                    document.body.style.overflow = '';
-                    overlay.style.opacity = '0';
-                    overlay.style.visibility = 'hidden';
-                }
-            });
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKgUGPH2F8902-zKhjcBpogVpTtgwb_Ws",
+      authDomain: "aspire-100k.firebaseapp.com",
+      projectId: "aspire-100k",
+      storageBucket: "aspire-100k.firebasestorage.app",
+      messagingSenderId: "393514183894",
+      appId: "1:393514183894:web:2a3ac54e221ef33b6aed77"
+    };
 
-            overlay.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = '';
-                overlay.style.opacity = '0';
-                overlay.style.visibility = 'hidden';
-            });
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-            function toggleRegisterDropdown(e) {
-                e.preventDefault();
-                registerDropdown.classList.toggle('show');
-            }
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
 
-            registerBtn.addEventListener('click', toggleRegisterDropdown);
-            heroRegisterBtn.addEventListener('click', toggleRegisterDropdown);
-            floatingRegisterBtn.addEventListener('click', toggleRegisterDropdown);
+    function displayDetails(details) {
+      const detailsList = document.getElementById('detailsList');
+      detailsList.innerHTML = '';
+      details.forEach(doc => {
+        const data = doc.data();
+        const detailsItem = document.createElement('li');
+        detailsItem.className = 'details-item';
+        detailsItem.innerHTML = `
+          <h3>${data.name}</h3>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <p><strong>Phone:</strong> ${data.phone || 'N/A'}</p>
+          <p><strong>Subject:</strong> ${data.subject}</p>
+          <p><strong>Message:</strong> ${data.message}</p>
+          <p><strong>Timestamp:</strong> ${new Date(data.timestamp.toDate()).toLocaleString()}</p>
+        `;
+        detailsList.appendChild(detailsItem);
+      });
+    }
 
-            document.querySelectorAll('.register-dropdown a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    registerDropdown.classList.remove('show');
-                });
-            });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (!link.closest('.dropdown') || link.closest('.dropdown-content')) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        document.body.style.overflow = '';
-                        overlay.style.opacity = '0';
-                        overlay.style.visibility = 'hidden';
-                    }
-                });
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    if (this.classList.contains('dropdown-trigger') ||
-                        this === registerBtn ||
-                        this === floatingRegisterBtn ||
-                        this === heroRegisterBtn) return;
-
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        const headerOffset = 80;
-                        const elementPosition = target.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            window.addEventListener('scroll', function() {
-                const navbar = document.querySelector('.navbar');
-                if (window.scrollY > 50) {
-                    navbar.style.background = 'rgba(17, 17, 17, 0.95)';
-                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-                } else {
-                    navbar.style.background = 'var(--color-bg-secondary)';
-                    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.5)';
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!registerDropdown.contains(e.target) &&
-                    e.target !== registerBtn &&
-                    e.target !== floatingRegisterBtn &&
-                    e.target !== heroRegisterBtn) {
-                    registerDropdown.classList.remove('show');
-                }
-            });
-
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768) {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = '';
-                    overlay.style.opacity = '0';
-                    overlay.style.visibility = 'hidden';
-                }
-            });
-
-            const sections = document.querySelectorAll('section');
-            const navItems = document.querySelectorAll('.nav-links a');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (pageYOffset >= (sectionTop - 200)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.getAttribute('href') === `#${current}`) {
-                        item.classList.add('active');
-                    }
-                });
-            });
-        });
-    </script>
+    db.collection("contactMessages").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+      const details = snapshot.docs;
+      displayDetails(details);
+    });
+  </script>
 </body>
 </html>
